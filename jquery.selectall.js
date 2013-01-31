@@ -15,22 +15,33 @@
 		}
 
 		this.append = function(id) {
-			checkedItems.push(id);
+			var index = this.search(id);
+			if(index == -1)
+				checkedItems.push(id);
+			return checkedItems;
 		},
 
 		this.search = function(id) {
 			return checkedItems.indexOf(id);
 		},
 
-		this.remove = function(index) {
+		this.removeID = function(id) {
+			var index = this.search(id);
+			if(index != -1)
+				checkedItems.splice(index, 1);
+			return checkedItems
+		}
+
+		this.removeIndex = function(index) {
 			checkedItems.splice(index, 1);
+			return checkedItems;
 		},
 
 		this.getList = function() {
 			return checkedItems;
 		}
 	};
-	
+
 	SelectAll.prototype = {
 		// Click function for checkboxes
 		click: function() {
@@ -41,7 +52,7 @@
 				// Append
 				this.append(id);
 			} else {
-				this.remove(index);
+				this.removeIndex(index);
 			}
 		},
 		// Click function for the select all button
@@ -56,7 +67,7 @@
 				}
 				$(this.element).prop('checked', true);
 			} else {
-				this.remove(index);
+				this.removeIndex(index);
 				$(this.element).prop('checked', false);
 			}
 		}
