@@ -22,11 +22,11 @@
 		},
 
 		this.search = function(id) {
-			return checkedItems.indexOf(id);
+			return checkedItems.indexOf(String(id));
 		},
 
 		this.removeID = function(id) {
-			var index = this.search(id);
+			var index = this.search(String(id));
 			if(index != -1)
 				checkedItems.splice(index, 1);
 			return checkedItems
@@ -54,6 +54,7 @@
 			} else {
 				this.removeIndex(index);
 			}
+			$(this.element).trigger('change',this.element);
 		},
 		// Click function for the select all button
 		allClick: function() {
@@ -70,6 +71,7 @@
 				this.removeIndex(index);
 				$(this.element).prop('checked', false);
 			}
+			$(this.element).trigger('change',this.element);
 		}
 	};
 
